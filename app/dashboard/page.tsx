@@ -884,8 +884,8 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              {/* 个股推荐（如果有） */}
-              {recommendation.stockPicks.length > 0 && (
+              {/* 个股推荐（仅进阶和专业水平显示） */}
+              {recommendation.stockPicks.length > 0 && !["新手", "入门"].includes(recommendation.knowledgeLevel) && (
                 <div className="mb-8">
                   <h3 className="text-xl font-semibold text-gray-800 mb-4">📈 精选个股推荐</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
