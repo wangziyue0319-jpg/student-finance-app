@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 // 投资目标类型
-type InvestmentGoal = "短期储蓄" | "中期增值" | "长期投资";
+type InvestmentGoal = "短期冲冠" | "长期豪门" | "运营维稳";
 
 // 风险承受类型
 type RiskTolerance = "无限进攻" | "防守反击";
@@ -117,42 +117,42 @@ interface MarketData {
 const KNOWLEDGE_QUESTIONS = [
   {
     id: 1,
-    question: "什么是ETF（交易型开放式指数基金）？",
+    question: "在足球转会市场中，'阵型'（如4-3-3）最主要的作用是什么？",
     options: [
-      { text: "像股票一样在交易所交易，跟踪特定指数的基金", correct: true },
-      { text: "只能在银行购买的封闭式基金", correct: false },
-      { text: "由基金经理主动选股的基金", correct: false },
-      { text: "只能在特定时间开放的基金", correct: false }
+      { text: "决定球队在球场上的战术体系和球员站位", correct: true },
+      { text: "决定球员的球衣号码分配", correct: false },
+      { text: "决定教练的薪资水平", correct: false },
+      { text: "决定球场的草坪维护方式", correct: false }
     ]
   },
   {
     id: 2,
-    question: "以下哪种投资方式风险最高？",
+    question: "以下哪种转会策略风险最高？",
     options: [
-      { text: "购买国债", correct: false },
-      { text: "购买货币基金", correct: false },
-      { text: "购买期货或进行杠杆交易", correct: true },
-      { text: "购买银行理财", correct: false }
+      { text: "购买成熟球星，支付高额转会费", correct: true },
+      { text: "培养青训球员，成本低", correct: false },
+      { text: "租借球员，灵活性强", correct: false },
+      { text: "免费转会老将，经验丰富", correct: false }
     ]
   },
   {
     id: 3,
-    question: "市盈率（PE）的含义是什么？",
+    question: "球员身价评估中，'年龄'因素通常如何影响身价？",
     options: [
-      { text: "公司总市值除以净利润", correct: true },
-      { text: "股价除以每股收益", correct: false },
-      { text: "交易量除以流通股本", correct: false },
-      { text: "净资产除以总股本", correct: false }
+      { text: "年轻球员潜力溢价，老将身价随年龄下降", correct: true },
+      { text: "年龄越大身价越高", correct: false },
+      { text: "年龄与身价无关", correct: false },
+      { text: "只有30岁球员身价最高", correct: false }
     ]
   },
   {
     id: 4,
-    question: "以下哪个不是A股市场的交易时间？",
+    question: "五大联赛（英超、西甲、德甲、意甲、法甲）的比赛时间通常是？",
     options: [
-      { text: "周一至周五 9:30-11:30, 13:00-15:00", correct: false },
-      { text: "周六日 9:30-15:00", correct: true },
-      { text: "法定节假日除外", correct: false },
-      { text: "早盘9:15-9:25是集合竞价时间", correct: false }
+      { text: "周末或周中晚间，具体时间因联赛而异", correct: true },
+      { text: "只能在周六下午3点", correct: false },
+      { text: "每天固定时间踢比赛", correct: false },
+      { text: "只在夏季进行比赛", correct: false }
     ]
   },
   {
@@ -641,26 +641,36 @@ export default function Home() {
 
         {/* 步骤内容 */}
         <div className="bg-white rounded-2xl shadow-xl p-8">
-          {/* 步骤1：投资目标 */}
+          {/* 步骤1：球队目标 */}
           {step === 1 && (
             <div>
-              <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-                你的投资目标是什么？
-              </h2>
+              <div className="text-center mb-8">
+                <div className="inline-block p-4 bg-green-100 rounded-full mb-4">
+                  <svg className="w-12 h-12 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                  </svg>
+                </div>
+                <h2 className="text-3xl font-bold text-gray-800 mb-2">欢迎来到足球世界！</h2>
+                <p className="text-gray-600">作为球队经理，你的首要目标是什么？</p>
+              </div>
               <div className="space-y-4">
-                {(["短期储蓄", "中期增值", "长期投资"] as InvestmentGoal[]).map((option) => (
+                {(["短期冲冠", "长期豪门", "运营维稳"] as InvestmentGoal[]).map((option) => (
                   <button
                     key={option}
                     onClick={() => { setGoal(option); setStep(2); }}
                     className={`w-full p-6 text-left rounded-xl border-2 transition-all ${
-                      goal === option ? "border-blue-500 bg-blue-50" : "border-gray-200 hover:border-blue-300"
+                      goal === option ? "border-green-500 bg-green-50" : "border-gray-200 hover:border-green-300"
                     }`}
                   >
-                    <div className="font-semibold text-lg mb-2">{option}</div>
+                    <div className="font-semibold text-lg mb-2 flex items-center gap-2">
+                      <span className="text-2xl">⚽</span>
+                      {option}
+                    </div>
                     <div className="text-gray-600 text-sm">
-                      {option === "短期储蓄" && "1-2年内可能需要使用资金，追求稳健收益"}
-                      {option === "中期增值" && "3-5年内寻求资产增值，可承受一定波动"}
-                      {option === "长期投资" && "5年以上投资期限，追求长期复利增长"}
+                      {option === "短期冲冠" && "1-2年内快速打造冠军阵容，不惜代价争取荣誉"}
+                      {option === "长期豪门" && "3-5年建立王朝基业，培养青训天才，打造百年俱乐部"}
+                      {option === "运营维稳" && "稳健经营，可持续发展，确保球队长期生存和稳定收益"}
                     </div>
                   </button>
                 ))}
@@ -668,12 +678,18 @@ export default function Home() {
             </div>
           )}
 
-          {/* 步骤2：投资风格 */}
+          {/* 步骤2：踢球风格 */}
           {step === 2 && (
             <div>
-              <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-                你更倾向于哪种投资风格？
-              </h2>
+              <div className="text-center mb-8">
+                <div className="inline-block p-4 bg-blue-100 rounded-full mb-4">
+                  <svg className="w-12 h-12 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  </svg>
+                </div>
+                <h2 className="text-3xl font-bold text-gray-800 mb-2">选择你的战术风格</h2>
+                <p className="text-gray-600">不同的战术风格决定球队的投资策略</p>
+              </div>
               <div className="space-y-4">
                 {(["无限进攻", "防守反击"] as RiskTolerance[]).map((option) => (
                   <button
@@ -683,10 +699,13 @@ export default function Home() {
                       riskTolerance === option ? "border-blue-500 bg-blue-50" : "border-gray-200 hover:border-blue-300"
                     }`}
                   >
-                    <div className="font-semibold text-lg mb-2">{option}</div>
+                    <div className="font-semibold text-lg mb-2 flex items-center gap-2">
+                      <span className="text-2xl">{option === "无限进攻" ? "🔥" : "🛡️"}</span>
+                      {option === "无限进攻" ? "4-3-3 全攻全守" : "5-3-2 防守反击"}
+                    </div>
                     <div className="text-gray-600 text-sm">
-                      {option === "无限进攻" && "追求高收益，配置高弹性标的如证券、科技、人工智能、创新药等进攻型资产"}
-                      {option === "防守反击" && "稳健为主，半仓配置低波红利防守，半仓配置弹性标的捕捉机会"}
+                      {option === "无限进攻" && "高位逼抢，疯狂进攻！配置证券、科技、AI、创新药等高弹性进攻型资产，追求最大化收益"}
+                      {option === "防守反击" && "稳固防守，快速反击！半仓配置红利资产防守，半仓配置弹性标的捕捉机会，攻守兼备"}
                     </div>
                   </button>
                 ))}
@@ -695,26 +714,35 @@ export default function Home() {
             </div>
           )}
 
-          {/* 步骤3：资金规模 */}
+          {/* 步骤3：球队预算 */}
           {step === 3 && (
             <div>
-              <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-                你的可投资资金规模是多少？
-              </h2>
+              <div className="text-center mb-8">
+                <div className="inline-block p-4 bg-yellow-100 rounded-full mb-4">
+                  <svg className="w-12 h-12 text-yellow-600" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
+                  </svg>
+                </div>
+                <h2 className="text-3xl font-bold text-gray-800 mb-2">你的球队预算是多少？</h2>
+                <p className="text-gray-600">预算决定了你能签下什么样的球员（投资标的）</p>
+              </div>
               <div className="space-y-4">
                 {(["5000以下", "5000-20000", "20000以上"] as FundLevel[]).map((option) => (
                   <button
                     key={option}
                     onClick={() => { setFundLevel(option); setStep(4); }}
                     className={`w-full p-6 text-left rounded-xl border-2 transition-all ${
-                      fundLevel === option ? "border-blue-500 bg-blue-50" : "border-gray-200 hover:border-blue-300"
+                      fundLevel === option ? "border-yellow-500 bg-yellow-50" : "border-gray-200 hover:border-yellow-300"
                     }`}
                   >
-                    <div className="font-semibold text-lg mb-2">{option}元</div>
+                    <div className="font-semibold text-lg mb-2 flex items-center gap-2">
+                      <span className="text-2xl">💰</span>
+                      {option === "5000以下" ? "青训营预算" : option === "5000-20000" ? "中游球队预算" : "豪门预算"}
+                    </div>
                     <div className="text-gray-600 text-sm">
-                      {option === "5000以下" && "适合进行小额基金定投"}
-                      {option === "5000-20000" && "可以配置ETF + 精选股票"}
-                      {option === "20000以上" && "可以构建多产品投资组合"}
+                      {option === "5000以下" && `5000元以下 - 适合小额基金定投，从年轻球员（ETF）开始培养`}
+                      {option === "5000-20000" && `5000-20000元 - 可以配置主力球员（ETF）+ 球星（精选股票）`}
+                      {option === "20000以上" && `20000元以上 - 可以打造豪华阵容，构建多产品投资组合`}
                     </div>
                   </button>
                 ))}
@@ -723,13 +751,18 @@ export default function Home() {
             </div>
           )}
 
-          {/* 步骤4：证券市场知识测试 */}
+          {/* 步骤4：球探知识测试 */}
           {step === 4 && (
             <div>
               <div className="text-center mb-6">
-                <h2 className="text-2xl font-semibold text-gray-800 mb-2">证券市场知识测试</h2>
+                <div className="inline-block p-4 bg-purple-100 rounded-full mb-4">
+                  <svg className="w-12 h-12 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
+                </div>
+                <h2 className="text-3xl font-bold text-gray-800 mb-2">球探知识测试</h2>
                 <p className="text-gray-600">
-                  根据答题结果调整推荐策略的激进程度
+                  测试你的足球知识，展示你的球探水平
                 </p>
               </div>
               <div className="space-y-6">
@@ -758,43 +791,40 @@ export default function Home() {
                 ))}
                 <button
                   onClick={handleSubmitQuiz}
-                  className="w-full bg-blue-600 text-white py-4 rounded-xl font-semibold hover:bg-blue-700 transition-colors mt-4"
+                  className="w-full bg-green-600 text-white py-4 rounded-xl font-semibold hover:bg-green-700 transition-colors mt-4"
                 >
-                  提交并查看推荐
+                  ⚽ 完成测试，查看战术板
                 </button>
               </div>
               <button onClick={() => setStep(3)} className="mt-4 text-gray-600 hover:text-gray-800">← 返回上一步</button>
             </div>
           )}
 
-          {/* 步骤5：推荐结果 */}
+          {/* 步骤5：战术板 */}
           {step === 5 && recommendation && (
             <div>
               <div className="text-center mb-8">
                 <div className="inline-block p-4 bg-green-100 rounded-full mb-4">
-                  <svg className="w-12 h-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
+                  <span className="text-4xl">🏆</span>
                 </div>
                 <div className="text-sm text-blue-600 font-medium mb-2">
-                  当前市场：{recommendation.marketCondition}（沪深300近半年{(marketData?.threeMonthChange || 0) >= 0 ? '+' : ''}{(marketData?.threeMonthChange || 0)}%）
+                  当前联赛形势：{recommendation.marketCondition}（沪深300近半年{(marketData?.threeMonthChange || 0) >= 0 ? '+' : ''}{(marketData?.threeMonthChange || 0)}%）
                 </div>
                 <div className="text-sm text-purple-600 font-medium mb-2">
-                  你的水平：{recommendation.knowledgeLevel}
+                  你的球探水平：{recommendation.knowledgeLevel}
                 </div>
                 <h2 className="text-3xl font-bold text-gray-800 mb-2">
-                  {recommendation.strategy}
+                  ⚽ {recommendation.strategy}
                 </h2>
+                <p className="text-gray-600 mt-2">根据你的选择制定的球队建设方案</p>
               </div>
 
               {/* 大学生投资者特别提示 */}
               <div className="bg-red-50 border-l-4 border-red-500 p-5 rounded-r-xl mb-8">
                 <div className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-red-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                  </svg>
+                  <span className="text-3xl">🎓</span>
                   <div className="flex-1">
-                    <div className="font-bold text-red-800 mb-2 text-base">🎓 大学生投资者特别提示</div>
+                    <div className="font-bold text-red-800 mb-2 text-base">大学生新经理特别提示</div>
                     <div className="text-sm text-red-700 leading-relaxed space-y-2">
                       <p>
                         <strong>切勿盲目购买券商APP、支付宝理财、京东金融等平台推荐的基金理财产品！</strong>
@@ -803,35 +833,33 @@ export default function Home() {
                         这些平台推荐的产品往往销售费用高、业绩跟踪差，且可能不适合您的投资目标和风险承受能力。
                       </p>
                       <p className="font-semibold text-red-800">
-                        入市前请务必做足功课：
+                        就像做球探要亲自考察球员一样，入市前请务必做足功课：
                       </p>
                       <ul className="list-disc list-inside ml-4 space-y-1 text-xs">
-                        <li>学习基础投资知识：了解ETF、股票、基金的基本区别</li>
-                        <li>研究产品特性：查看费率、历史业绩、投资策略</li>
-                        <li>了解市场环境：关注大盘走势、行业景气度</li>
-                        <li>制定投资计划：明确自己的投资目标和止盈止损策略</li>
+                        <li>学习基础知识：了解ETF、股票、基金的区别，就像了解不同位置的球员特点</li>
+                        <li>研究产品特性：查看费率、历史业绩、投资策略，就像考察球员的技术特点和过往表现</li>
+                        <li>了解市场环境：关注大盘走势、行业景气度，就像关注联赛形势和球队状态</li>
+                        <li>制定投资计划：明确目标和止盈止损策略，就像制定赛季目标和轮换策略</li>
                       </ul>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* 知识评估反馈 */}
+              {/* 球探评估反馈 */}
               <div className="mb-8 p-4 bg-blue-50 border border-blue-200 rounded-xl">
                 <div className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h1m1-4h1" />
-                  </svg>
+                  <span className="text-2xl">🔍</span>
                   <div>
-                    <div className="font-semibold text-blue-800">知识评估</div>
+                    <div className="font-semibold text-blue-800">球探评估报告</div>
                     <div className="text-sm text-blue-700">{recommendation.knowledgeAssessment}</div>
                   </div>
                 </div>
               </div>
 
-              {/* 推荐产品列表 */}
+              {/* 推荐球员列表 */}
               <div className="mb-8">
-                <h3 className="text-xl font-semibold text-gray-800 mb-4">💎 具体产品推荐</h3>
+                <h3 className="text-xl font-semibold text-gray-800 mb-4">⭐ 推荐签约球员（投资标的）</h3>
                 <div className="space-y-3">
                   {recommendation.recommendedProducts.map((product, index) => (
                     <div key={index} className="border-2 border-gray-200 rounded-xl p-4 hover:border-blue-300 transition-colors">
@@ -865,10 +893,10 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* 个股推荐（仅进阶和专业水平显示） */}
+              {/* 球星推荐（仅进阶和专业水平显示） */}
               {recommendation.stockPicks.length > 0 && !["新手", "入门"].includes(recommendation.knowledgeLevel) && (
                 <div className="mb-8">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-4">📈 精选个股推荐</h3>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-4">🌟 精选球星推荐</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {recommendation.stockPicks.map((stock, index) => (
                       <div key={index} className="bg-purple-50 rounded-lg p-4 border border-purple-200">
@@ -886,10 +914,10 @@ export default function Home() {
                 </div>
               )}
 
-              {/* 操作建议 */}
-              <div className="mb-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl">
+              {/* 战术指导 */}
+              <div className="mb-8 p-6 bg-gradient-to-r from-green-50 to-blue-50 rounded-xl">
                 <h3 className="text-lg font-semibold text-gray-800 mb-3">
-                  💡 操作建议
+                  📋 战术指导
                 </h3>
                 <p className="text-gray-700 leading-relaxed">
                   {recommendation.tacticalAdvice}
@@ -899,11 +927,9 @@ export default function Home() {
               {/* 风险提示 */}
               <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-xl">
                 <div className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-yellow-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                  </svg>
+                  <span className="text-2xl">⚠️</span>
                   <div>
-                    <div className="font-semibold text-yellow-800 mb-1">风险提示</div>
+                    <div className="font-semibold text-yellow-800 mb-1">转会风险提示</div>
                     <div className="text-sm text-yellow-700">{recommendation.riskWarning}</div>
                   </div>
                 </div>
