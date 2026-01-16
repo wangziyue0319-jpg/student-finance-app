@@ -616,7 +616,7 @@ export default function Home() {
             根据市场环境和投资水平，推荐具体投资产品
           </p>
           <div className="mt-4 flex justify-center gap-2">
-            {[1, 2, 3, 4, 5].map((i) => (
+            {[1, 2, 3].map((i) => (
               <div
                 key={i}
                 className={`h-2 w-12 rounded-full transition-all ${
@@ -701,11 +701,11 @@ export default function Home() {
                   >
                     <div className="font-semibold text-lg mb-2 flex items-center gap-2">
                       <span className="text-2xl">{option === "无限进攻" ? "🔥" : "🛡️"}</span>
-                      {option === "无限进攻" ? "4-3-3 全攻全守" : "5-3-2 防守反击"}
+                      {option === "无限进攻" ? "4-3-3 全攻全守" : "4-2-3-1 防守反击"}
                     </div>
                     <div className="text-gray-600 text-sm">
                       {option === "无限进攻" && "高位逼抢，疯狂进攻！配置证券、科技、AI、创新药等高弹性进攻型资产，追求最大化收益"}
-                      {option === "防守反击" && "稳固防守，快速反击！半仓配置红利资产防守，半仓配置弹性标的捕捉机会，攻守兼备"}
+                      {option === "防守反击" && "稳固后腰，快速反击！半仓配置红利资产防守，半仓配置弹性标的捕捉机会，攻守兼备"}
                     </div>
                   </button>
                 ))}
@@ -723,14 +723,25 @@ export default function Home() {
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
                   </svg>
                 </div>
-                <h2 className="text-3xl font-bold text-gray-800 mb-2">你的球队预算是多少？</h2>
-                <p className="text-gray-600">预算决定了你能签下什么样的球员（投资标的）</p>
+                <h2 className="text-3xl font-bold text-gray-800 mb-2">最后一步：球队预算</h2>
+                <p className="text-gray-600">选择预算后即可查看你的战术板！</p>
               </div>
               <div className="space-y-4">
                 {(["5000以下", "5000-20000", "20000以上"] as FundLevel[]).map((option) => (
                   <button
                     key={option}
-                    onClick={() => { setFundLevel(option); setStep(4); }}
+                    onClick={() => {
+                      setFundLevel(option);
+                      // 跳过知识测试，直接生成推荐
+                      setTimeout(() => {
+                        generateRecommendation();
+                        setStep(5);
+                        // 滚动到页面顶部以显示结果
+                        setTimeout(() => {
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }, 100);
+                      }, 100);
+                    }}
                     className={`w-full p-6 text-left rounded-xl border-2 transition-all ${
                       fundLevel === option ? "border-yellow-500 bg-yellow-50" : "border-gray-200 hover:border-yellow-300"
                     }`}
